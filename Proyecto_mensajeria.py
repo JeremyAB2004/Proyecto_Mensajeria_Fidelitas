@@ -32,7 +32,6 @@ while menuPrincipal !=0:
     
     elif menuPrincipal == 2:
         #Registrar una factura electronica
-        #RegistroDeFacturas
         print ("Registro de facturas:\n")
         
         try:
