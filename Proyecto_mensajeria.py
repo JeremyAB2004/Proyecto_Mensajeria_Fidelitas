@@ -22,8 +22,12 @@ while menuPrincipal !=0:
         print("\n--- Registro cuenta de usuario ---\n")
         correoElectrónico = str(input("Ingresa el correo electrónico: "))
         nombreComercio = str(input("Ingresa el nombre del comercio: "))
+        nombreComercio = nombreComercio.capitalize()
         telefonoComercio = str(input("Ingresa el teléfono del comercio: "))
         nombreDueno = str(input("Ingresa el nombre del dueño: "))
+        nombreDueno = nombreDueno.capitalize()
+        apellidoDueno = str(input("Ingresa el apellido del dueño: "))
+        apellidoDueno = apellidoDueno.capitalize()
         ubicacionLocal = str(input("Ingresa la ubicación del local: "))
     
     elif menuPrincipal == 2:
@@ -48,36 +52,25 @@ while menuPrincipal !=0:
             tipoDeCedula = input("Ingrese el tipo de Cedula. \n1-Juridica.\n2-Fisica.\n")
         
         nombreRegistrado =input("\nIngrese el Nombre registrado: ") 
+        nombreRegistrado = nombreRegistrado.capitalize()
         telefono =int(input("\nIngrese el numero de telefono: "))
         correoElectronico =input("\nIngrese el correo electronico: ")
         provincia = input("\nIngrese la Provincia: ")
+        provincia = provincia.capitalize()
         canton =input ("\nIngrese el Canton: ")
-        Distrito =input("\nIngrese el Distrito: ")
+        canton = canton.capitalize()
+        distrito =input("\nIngrese el Distrito: ")
+        distrito = distrito.capitalize()
 
     elif menuPrincipal == 3:
         #Registro de paquetes
         print("Registro de paquetes: \n")
-
-        try:
-            cobroContraEntrega = int(input("Realizar cobro contra entrega?. \n1-Si.\n2-No.\n"))
-        except:
-            cobroContraEntrega = -1
-            print("Digita una opción correcta.")
-        while cobroContraEntrega !=0:
-            if cobroContraEntrega == 1:
-                cedulaJuridica = int(input("Ingrese el monto por cobrar en (colones):\n"))
-                break
-            elif cobroContraEntrega == 2:
-                break
-            else: 
-                print ("Digita una opcion correcta.")
-            cobroContraEntrega = input("Realizar cobro contra entrega?. \n1-Si.\n2-No.\n")
-        
         nombreDestinatario =input("\nIngrese el Nombre del destinatario: ") 
+        nombreDestinatario = nombreDestinatario.capitalize()
         telefonoDestinatario =int(input("\nIngrese el número de teléfono del destinatario: "))
-        numeroCedula =input("\nIngrese el número de cédula del destinatario: ")
-        pesoPaquete = input("\nIngrese el peso del paquete en kg: ")
-    
+        numeroCedula =int(input("\nIngrese el número de cédula del destinatario: "))
+        pesoPaquete = float(input("\nIngrese el peso del paquete en kg: "))
+        cobroContraEntrega = float(input("\nIngrese el el monto en colones del costo de la entrega: "))
     else: 
         print ("Digita una opcion correcta.")
     menuPrincipal = int(input("Menu Principal: \n 1-Registrar cuenta del usuario. \n 2-Registrar una factura electronica. \n 3-Registrar el paquete. \n 0-Salir.\n"))
