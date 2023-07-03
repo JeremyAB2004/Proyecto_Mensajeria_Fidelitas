@@ -56,8 +56,28 @@ while menuPrincipal !=0:
 
     elif menuPrincipal == 3:
         #Registro de paquetes
-        pass
+        print("Registro de paquetes: \n")
+
+        try:
+            cobroContraEntrega = int(input("Realizar cobro contra entrega?. \n1-Si.\n2-No.\n"))
+        except:
+            cobroContraEntrega = -1
+            print("Digita una opción correcta.")
+        while cobroContraEntrega !=0:
+            if cobroContraEntrega == 1:
+                cedulaJuridica = int(input("Ingrese el monto por cobrar en (colones):\n"))
+                break
+            elif cobroContraEntrega == 2:
+                break
+            else: 
+                print ("Digita una opcion correcta.")
+            cobroContraEntrega = input("Realizar cobro contra entrega?. \n1-Si.\n2-No.\n")
         
+        nombreDestinatario =input("\nIngrese el Nombre del destinatario: ") 
+        telefonoDestinatario =int(input("\nIngrese el número de teléfono del destinatario: "))
+        numeroCedula =input("\nIngrese el número de cédula del destinatario: ")
+        pesoPaquete = input("\nIngrese el peso del paquete en kg: ")
+    
     else: 
         print ("Digita una opcion correcta.")
     menuPrincipal = int(input("Menu Principal: \n 1-Registrar cuenta del usuario. \n 2-Registrar una factura electronica. \n 3-Registrar el paquete. \n 0-Salir.\n"))
