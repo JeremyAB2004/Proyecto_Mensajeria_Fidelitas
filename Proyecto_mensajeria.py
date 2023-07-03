@@ -28,7 +28,31 @@ while menuPrincipal !=0:
     
     elif menuPrincipal == 2:
         #Registrar una factura electronica
-        pass
+        #RegistroDeFacturas
+        print ("Registro de facturas:\n")
+        
+        try:
+            tipoDeCedula = int(input("Ingrese el tipo de Cedula. \n1-Juridica.\n2-Fisica.\n"))
+        except:
+            tipoDeCedula = -1
+            print("Digita una opción correcta.")
+        while tipoDeCedula !=0:
+            if tipoDeCedula == 1:
+                cedulaJuridica = int(input("Ingrese el numero de la cedula Juridica:\n"))
+                break
+            elif tipoDeCedula == 2:
+                cedulaFisica = int(input("Ingrese el numero de la cedula Fisica:\n"))
+                break
+            else: 
+                print ("Digita una opcion correcta.")
+            tipoDeCedula = input("Ingrese el tipo de Cedula. \n1-Juridica.\n2-Fisica.\n")
+        
+        nombreRegistrado =input("\nIngrese el Nombre registrado: ") 
+        telefono =int(input("\nIngrese el numero de telefono: "))
+        correoElectronico =input("\nIngrese el correo electronico: ")
+        provincia = input("\nIngrese la Provincia: ")
+        canton =input ("\nIngrese el Canton: ")
+        Distrito =input("\nIngrese el Distrito: ")
 
     elif menuPrincipal == 3:
         #Registro de paquetes
