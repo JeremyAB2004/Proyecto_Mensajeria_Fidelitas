@@ -19,12 +19,12 @@ while menuPrincipal !=0:
     if menuPrincipal == 1:
         #Registrar cuenta del usuario
 
-        print("\n--- Registro cuenta de usuario ---\n")
-        correoElectrónico = str(input("Ingresa el correo electrónico: "))
-        nombreComercio = str(input("Ingresa el nombre del comercio: "))
-        telefonoComercio = str(input("Ingresa el teléfono del comercio: "))
-        nombreDueno = str(input("Ingresa el nombre del dueño: "))
-        ubicacionLocal = str(input("Ingresa la ubicación del local: "))
+        print("Registro de cuenta de usuario \n")
+        correo = str(input("Ingrese su correo electronico: "))
+        nComercio = str(input("Ingrese el nombre del comercio: "))
+        tComercio = int(input("Ingrese el numero telefonico del comercio: "))
+        nDueño =  str(input("Ingrese el nombre y apellidos del dueño del comercio: "))
+        uComercio = str(input("Ingrese la ubicacion del comercio: "))
     
     elif menuPrincipal == 2:
         #Registrar una factura electronica
