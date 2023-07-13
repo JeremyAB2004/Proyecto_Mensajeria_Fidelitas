@@ -18,7 +18,6 @@ except:
 while menuPrincipal !=0:
     if menuPrincipal == 1:
         #Registrar cuenta del usuario
-
         print("\n--- Registro cuenta de usuario ---\n")
         correoElectrónico = str(input("Ingresa el correo electrónico: "))
         nombreComercio = str(input("Ingresa el nombre del comercio: "))
