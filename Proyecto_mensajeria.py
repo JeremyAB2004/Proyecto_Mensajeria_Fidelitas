@@ -29,6 +29,7 @@ while menuPrincipal !=0:
         apellidoDueno = str(input("Ingresa el apellido del dueño: "))
         apellidoDueno = apellidoDueno.capitalize()
         ubicacionLocal = str(input("Ingresa la ubicación del local: "))
+
     
     elif menuPrincipal == 2:
         #Registrar una factura electronica
