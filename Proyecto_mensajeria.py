@@ -7,108 +7,97 @@ VARELA DIAZ DITTER MAURICIO
 ACUÑA BRENES JEREMY JESHUA
 '''
 
-#Variables de Registrar cuenta del usuario
-correoElectrónico = ''
-nombreComercio = ''
-telefonoComercio = ''
-nombreDueno = ''
-apellidoDueno = ''
-ubicacionLocal = ''
-
-#Variables de Registrar una factura electronica
-tipoDeCedula = -1
-cedulaJuridica = ''
-cedulaFisica = '' 
-nombreRegistrado = ''
-telefono = ''
-correoElectronico = ''
-provincia = ''
-canton = ''
-distrito = ''
-
-#Variables de Registro de paquetes
-nombreDestinatario = ''
-telefonoDestinatario = ''
-numeroCedula = ''
-pesoPaquete = 0
-cobroContraEntrega = 0
-
-#Variables de Menu Principal
-menuPrincipal = -1
-
 #Menú
-print ("***Bienvenido, este es el menú de Inicio***")
-
-while menuPrincipal != 0:
-
+print ("***Este es el menu de Inicio***")
+#Menu Principal
+try:
+    menuPrincipal = int(input("Menu Principal: \n 1-Registrar cuenta del usuario. \n 2-Registrar una factura electronica. \n 3-Registrar el paquete. \n 4-Creación de guías  \n 0-Salir.\n"))
+except:
+    menuPrincipal = -1
+    print("Digita una opción correcta.")
+while menuPrincipal !=0:
     if menuPrincipal == 1:
         #Registrar cuenta del usuario
-
-        print("\n--- Registro cuenta de usuario ---")
-
-        correoElectrónico = str(input("\nIngrese el correo electrónico: "))
-        nombreComercio = str(input("\nIngrese el nombre del comercio: "))
+        print("\n--- Registro cuenta de usuario ---\n")
+        correoElectrónico = str(input("Ingresa el correo electrónico: "))
+        nombreComercio = str(input("Ingresa el nombre del comercio: "))
         nombreComercio = nombreComercio.capitalize()
-        telefonoComercio = str(input("\nIngrese el teléfono del comercio: "))
-        nombreDueno = str(input("\nIngrese el nombre del dueño: "))
+        telefonoComercio = str(input("Ingresa el teléfono del comercio: "))
+        nombreDueno = str(input("Ingresa el nombre del dueño: "))
         nombreDueno = nombreDueno.capitalize()
-        apellidoDueno = str(input("\nIngrese el apellido del dueño: "))
+        apellidoDueno = str(input("Ingresa el apellido del dueño: "))
         apellidoDueno = apellidoDueno.capitalize()
-        ubicacionLocal = str(input("\nIngrese la ubicación del local: "))
+        ubicacionLocal = str(input("Ingresa la ubicación del local: "))
+        menuPrincipal = int(input("Menu Principal: \n 1-Registrar cuenta del usuario. \n 2-Registrar una factura electronica. \n 3-Registrar el paquete. \n 4-Creación de guías  \n 0-Salir.\n"))
     
     elif menuPrincipal == 2:
         #Registrar una factura electronica
-
-        print ("\n--- Registro de facturas: ---")
-
-        while tipoDeCedula !=0:
-
-            if tipoDeCedula == 1:
-
-                cedulaJuridica = str(input("\nIngrese el número de la cédula Juridica:"))
-                break
-
-            elif tipoDeCedula == 2:
-
-                cedulaFisica = str(input("\nIngrese el número de la cédula Física:"))
-                break
-
-            try:
-                tipoDeCedula = int(input("Tipos de cédula:\n1) Jurídica.\n2) Física.\nIngrese el tipo de Cédula: "))
-            except:
-                tipoDeCedula = -1
-                print ("\n---¡Digita una opción correcta!---")
+        print ("Registro de facturas:\n")
         
-        nombreRegistrado = str(input("\nIngrese el Nombre registrado: "))
+        try:
+            tipoDeCedula = int(input("Ingrese el tipo de Cedula. \n1-Juridica.\n2-Fisica.\n"))
+        except:
+            tipoDeCedula = -1
+            print("Digita una opción correcta.")
+        while tipoDeCedula !=0:
+            if tipoDeCedula == 1:
+                cedulaJuridica = int(input("Ingrese el numero de la cedula Juridica:\n"))
+                break
+            elif tipoDeCedula == 2:
+                cedulaFisica = int(input("Ingrese el numero de la cedula Fisica:\n"))
+                break
+            else: 
+                print ("Digita una opcion correcta.")
+            tipoDeCedula = input("Ingrese el tipo de Cedula. \n1-Juridica.\n2-Fisica.\n")
+        
+        nombreRegistrado =input("\nIngrese el Nombre registrado: ") 
         nombreRegistrado = nombreRegistrado.capitalize()
-
-        telefono = str(input("\nIngrese el número de telefono: "))
-        correoElectronico = str(input("\nIngrese el correo electronico: "))
-
+        telefono =int(input("\nIngrese el numero de telefono: "))
+        correoElectronico =input("\nIngrese el correo electronico: ")
         provincia = input("\nIngrese la Provincia: ")
         provincia = provincia.capitalize()
-
-        canton = str(input("\nIngrese el Cantón: "))
+        canton =input ("\nIngrese el Canton: ")
         canton = canton.capitalize()
-
-        distrito = str(input("\nIngrese el Distrito: "))
+        distrito =input("\nIngrese el Distrito: ")
         distrito = distrito.capitalize()
-
+        menuPrincipal = int(input("Menu Principal: \n 1-Registrar cuenta del usuario. \n 2-Registrar una factura electronica. \n 3-Registrar el paquete. \n 4-Creación de guías  \n 0-Salir.\n"))
     elif menuPrincipal == 3:
         #Registro de paquetes
-
-        print("\n--- Registro de paquetes: ---")
-
-        nombreDestinatario = str(input("\nIngrese el Nombre del destinatario: "))
+        print("Registro de paquetes: \n")
+        nombreDestinatario =input("\nIngrese el Nombre del destinatario: ") 
         nombreDestinatario = nombreDestinatario.capitalize()
-        telefonoDestinatario = str(input("\nIngrese el número de teléfono del destinatario: "))
-        numeroCedula = str(input("\nIngrese el número de cédula del destinatario: "))
+        telefonoDestinatario =int(input("\nIngrese el número de teléfono del destinatario: "))
+        numeroCedula =int(input("\nIngrese el número de cédula del destinatario: "))
         pesoPaquete = float(input("\nIngrese el peso del paquete en kg: "))
-        cobroContraEntrega = float(input("\nIngrese el monto en colones del costo de la entrega: "))  
+        cobroContraEntrega = float(input("\nIngrese el el monto en colones del costo de la entrega: "))
+        menuPrincipal = int(input("Menu Principal: \n 1-Registrar cuenta del usuario. \n 2-Registrar una factura electronica. \n 3-Registrar el paquete. \n 4-Creación de guías  \n 0-Salir.\n"))
+    elif menuPrincipal == 4:
+        #Creación de guías
+        #día
+        from datetime import datetime
+        fechaActual = datetime.now()
+        codigoFecha = datetime.strftime(fechaActual,'%d%m%y')
 
-    #Seguir preguntando por las opciones del menú
-    try:
-        menuPrincipal = int(input("\nMenú Principal: \n1) Registrar cuenta del usuario. \n2) Registrar una factura electrónica. \n3) Registrar el paquete. \n0-Salir.\nIngresa la opción: "))
-    except:
-        menuPrincipal = -1
-        print ("\n---¡Digita una opción correcta!---")
+        codigoNumero = 0 
+        codigoNumero += 1
+
+        numeroGuia = (codigoFecha + str (codigoNumero))
+
+        #Mostrar a pantalla
+        print (numeroGuia, end="\n")
+
+        #Información del Comercio
+        print (nombreComercio, end="\n")
+        print (telefonoComercio, end="\n")
+
+        #Informacion del destinatario
+        print (nombreDestinatario, end="\n")
+        print (nombreDestinatario, end="\n")
+
+        #Cobro contra entrega
+        print (cobroContraEntrega, end="\n")
+        menuPrincipal = int(input("Menu Principal: \n 1-Registrar cuenta del usuario. \n 2-Registrar una factura electronica. \n 3-Registrar el paquete. \n 4-Creación de guías  \n 0-Salir.\n"))
+
+    else: 
+        print ("Digita una opcion correcta.")
+        menuPrincipal = int(input("Menu Principal: \n 1-Registrar cuenta del usuario. \n 2-Registrar una factura electronica. \n 3-Registrar el paquete. \n 0-Salir.\n"))
