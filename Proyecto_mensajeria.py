@@ -1,30 +1,24 @@
-#creación de guías 
- elif menuPrincipal == 4:
-    #Constantes
-    
-    vocales = "aeiouAEIOU"
-    numeros = "0123456789"
-    
-    #Variables
-    
-    #creacion del numero
-    import random
-    unir = f"{vocales}{numeros}"
-    longitud = 8
-    extension = random.sample (unir, longitud)
-    
-    creacionDeGuia = "".join(extension)
-    
-    
-    #Mostrar a pantalla
-    print (creacionDeGuia)
-    #Información del Comercio
-    print (nombreComercio)
-    print (telefonoComercio)
-    #Informacion del destinatario
-    print (nombreDestinatario)
-    print (nombreDestinatario)
-    #Cobro contra entrega
-    print (cobroContraEntrega)
+#Creacion de numero guia 
+#día
+from datetime import datetime
+fechaActual = datetime.now()
+codigoFecha = datetime.strftime(fechaActual,'%d%m%y')
 
+codigoNumero = 0 
+codigoNumero += 1
 
+numeroGuia = (codigoFecha + str (codigoNumero))
+
+#Mostrar a pantalla
+print (numeroGuia)
+
+#Información del Comercio
+print (nombreComercio)
+print (telefonoComercio)
+
+#Informacion del destinatario
+print (nombreDestinatario)
+print (nombreDestinatario)
+
+#Cobro contra entrega
+print (cobroContraEntrega)
