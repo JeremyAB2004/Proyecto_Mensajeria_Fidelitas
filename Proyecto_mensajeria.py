@@ -80,6 +80,7 @@ while menuPrincipal !=0:
 
         codigoNumero = 0 
         codigoNumero += 1
+        codigoNumero = str(codigoNumero).zfill(4)
 
         numeroGuia = (codigoFecha + str (codigoNumero))
 
