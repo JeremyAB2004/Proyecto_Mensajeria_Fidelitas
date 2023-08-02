@@ -7,11 +7,12 @@ VARELA DIAZ DITTER MAURICIO
 ACUÑA BRENES JEREMY JESHUA
 '''
 
-#Menú
-print ("***Este es el menu de Inicio***")
+def main():
+
+    print ("***Este es el menu de Inicio***")
 #Menu Principal
 try:
-    menuPrincipal = int(input("Menu Principal: \n 1-Registrar cuenta del usuario. \n 2-Registrar una factura electronica. \n 3-Registrar el paquete. \n 4-Creación de guías \n 5-Cambio de estado de los paquetes  \n 0-Salir.\n"))
+    menuPrincipal = int(input("Menu Principal: \n 1-Registrar cuenta del usuario. \n 2-Registrar una factura electronica. \n 3-Registrar el paquete. \n 4-Creación de guías \n 5-Cambio de estado de los paquetes \n 6-Rastreo de Paquete  \n 0-Salir.\n"))
 except:
     menuPrincipal = -1
     print("Digita una opción correcta.")
@@ -97,13 +98,26 @@ while menuPrincipal !=0:
 
         #Cobro contra entrega
         print (cobroContraEntrega, end="\n")
-        menuPrincipal = int(input("Menu Principal: \n 1-Registrar cuenta del usuario. \n 2-Registrar una factura electronica. \n 3-Registrar el paquete. \n 4-Creación de guías  \n 0-Salir.\n"))
-   elif menuPrincipal == 5:
+        menuPrincipal = int(input("Menu Principal: \n 1-Registrar cuenta del usuario. \n 2-Registrar una factura electronica. \n 3-Registrar el paquete. \n 4-Creación de guías \n 5-Cambio de estado de los paquetes \n 6-Rastreo de Paquete  \n 0-Salir.\n"))
+    elif menuPrincipal == 5:
         #Cambio de estado de los paquetes
         guia = input("Ingrese el número de guía: ")
         nuevoEstado = input("Ingrese el nuevo estado del paquete: \n *Creado \n *Recolectado \n *Entrega fallida \n *Entregado \n")
         cambiarEstado = (guia, nuevoEstado)
         print("Estado actualizado correctamente.")
+    elif menuPrincipal == 6:
+        while True:
+            estado = int(input("Ingrese su numero de guia"))
+            if estado == numeroGuia:
+                print (f"El estado del paquete {numeroGuia} es {nuevoEstado}")
+                break
+            else:
+                resp = int(input("**Numero de guia incorrecto** \n \n 1-Menu principal 2-Intentar de nuevo"))
+                if resp == 1:
+                    break
+
     else: 
         print ("Digita una opcion correcta.")
-        menuPrincipal = int(input("Menu Principal: \n 1-Registrar cuenta del usuario. \n 2-Registrar una factura electronica. \n 3-Registrar el paquete. \n 0-Salir.\n"))
+        menuPrincipal = int(input("Menu Principal: \n 1-Registrar cuenta del usuario. \n 2-Registrar una factura electronica. \n 3-Registrar el paquete. \n 4-Creación de guías \n 5-Cambio de estado de los paquetes \n 6-Rastreo de Paquete  \n 0-Salir.\n"))
+    
+    
