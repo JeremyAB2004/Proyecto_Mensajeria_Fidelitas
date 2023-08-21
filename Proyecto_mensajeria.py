@@ -1,6 +1,7 @@
 from datetime import datetime
 import json
 
+#El programa crea los archivos, si es que no existen
 try:
     textFile = open('usuarios.txt', 'r')
     textFile.close()
@@ -403,7 +404,7 @@ while menuPrincipal != 0:
 
                 if str(numeroGuiaRastreo) == guia[0]:
 
-                    print("\nEl estado del paquete de guía número",numeroGuiaRastreo,"es:",listaGuias[paquete][-1])
+                    print("\nEl estado del paquete de guía número",numeroGuiaRastreo,"es:",listaGuias[paquete][-2])
                     estadoCompleto = 1
                     break
                     
