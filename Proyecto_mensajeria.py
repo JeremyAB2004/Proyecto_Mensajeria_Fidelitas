@@ -1,11 +1,11 @@
 from datetime import datetime
+import json
 
 #Variables de Registrar cuenta del usuario
 correoElectrónico = ''
 nombreComercio = ''
 telefonoComercio = ''
 nombreDueno = ''
-apellidoDueno = ''
 ubicacionLocal = ''
 
 #Variables de Registrar una factura electronica
@@ -41,28 +41,152 @@ menuPrincipal = -1
 consultarTelefono = ""
 consultarCedula = ""
 
+#Función para registro de listas en TXT
+def registroTXT(texto, file, message):
+
+    textFile = open(file, 'r')
+    contentFile = textFile.read()
+    textFile.close()
+
+    if contentFile == '':
+        contentFile = '[]'
+
+    lista = json.loads(contentFile.replace("'", "\""))
+    lista.append(texto)
+
+    textFile = open(file, 'w')
+    textFile.write(str(lista))
+    textFile.close()
+
+    print(message)
+
+#Función para obtener listas en TXT
+def obtenerTXT(file):
+
+    textFile = open(file, 'r')
+    contentFile = textFile.read()
+    textFile.close()
+
+    if contentFile == '':
+        contentFile = '[]'
+
+    lista = json.loads(contentFile.replace("'", "\""))
+
+    return lista
+
+#Función para actualizar listas en TXT
+def actualizarTXT(texto, file, message):
+
+    textFile = open(file, 'w')
+    textFile.write(str(texto))
+    textFile.close()
+
+    print(message)
+
+
 #Funciones  para la estadistica.
-def calcularEnvios(paquetes):
-    return len(paquetes)
+def calcularEnvios():
 
-def listaPaquetes(paquetes):
-    return [paquete[0] for paquete in paquetes]  
+    #Traemos los datos del txt de guias
+    listaGuias = obtenerTXT('guias.txt')
 
-def calculoTotalRecolectado(paquetes):
-    return sum(paquete[1] for paquete in paquetes)  
+    return len(listaGuias)
 
-def paquetesPorTelefono(paquetes, telefono):
-    return sum(1 for paquete in paquetes if paquete[2] == telefono)  
+def listaPaquetes():
 
-def paquetesPorCedula(paquetes, cedula):
-    return sum(1 for paquete in paquetes if paquete[3] == cedula)  
+    #Traemos los datos del txt de guias
+    listaGuias = obtenerTXT('guias.txt')
 
-#Menú
-print ("***Bienvenido, este es el menú de Inicio***")
+    paquetesEntregados = ''
 
-while menuPrincipal != 0:
+    for guia in listaGuias:
+        if guia[-2] == 'Entregado':
+            paquetesEntregados += f'\nPaquete: {guia[0]}\n'
 
-    if menuPrincipal == 1:
+
+    return paquetesEntregados 
+
+def calculoTotalRecolectado():
+
+    #Traemos los datos del txt de guias
+    listaGuias = obtenerTXT('guias.txt')
+
+    montoTotal = .0
+
+    for guia in listaGuias:
+        try:
+            montoTotal += float(guia[-3])
+        except:
+            continue
+
+    return montoTotal
+
+def paquetesPorTelefono(telefono):
+    
+    #Traemos los datos del txt de guias
+    listaGuias = obtenerTXT('guias.txt')
+
+    paquetesPorTel = 0
+
+    for guia in listaGuias:
+        try:
+            if guia[4] == telefono:
+                paquetesPorTel += 1
+        except:
+            continue
+
+    return paquetesPorTel
+
+def paquetesPorCedula(cedula):
+    
+    #Traemos los datos del txt de guias
+    listaGuias = obtenerTXT('guias.txt')
+
+    paquetesPorCed = 0
+
+    for guia in listaGuias:
+        try:
+            if guia[5] == cedula:
+                paquetesPorCed += 1
+        except:
+            continue
+
+    return paquetesPorCed
+
+validacionInicioSesion = 0
+
+print ("***Bienvenido, primero debe iniciar sesión***")
+
+
+
+menuPrincipalIngreso = -1
+
+while validacionInicioSesion == 0:
+
+    if menuPrincipalIngreso == 1:
+        correoIncioSesion = str(input('Ingrese su correo de usuario: '))
+
+        #Traemos los datos del txt de usuarios
+        listaUsuarios = obtenerTXT('usuarios.txt')
+
+        for usuario in listaUsuarios:
+
+            if usuario[1] == correoIncioSesion:
+
+                validacionInicioSesion = 1
+                idUsuario = usuario[0]
+                break
+
+            else:
+
+                validacionInicioSesion = 0
+
+        if validacionInicioSesion == 0:
+            
+            print('\n ---Correo de usuario no existe---')
+    
+    elif menuPrincipalIngreso == 2:
+        
         #Registrar cuenta del usuario
 
         print("\n--- Registro cuenta de usuario ---")
@@ -73,25 +197,50 @@ while menuPrincipal != 0:
         telefonoComercio = str(input("\nIngrese el teléfono del comercio: "))
         nombreDueno = str(input("\nIngrese el nombre del dueño: "))
         nombreDueno = nombreDueno.capitalize()
-        apellidoDueno = str(input("\nIngrese el apellido del dueño: "))
-        apellidoDueno = apellidoDueno.capitalize()
         ubicacionLocal = str(input("\nIngrese la ubicación del local: "))
+
+        #Traemos los datos del txt de usuarios
+        listaUsuarios = obtenerTXT('usuarios.txt')
+
+        registroUsuarioVariable = [len(listaUsuarios),correoElectrónico,nombreComercio,telefonoComercio,nombreDueno,ubicacionLocal]
+
+        registroTXT(registroUsuarioVariable, 'usuarios.txt', 'Su registro ha sido exitoso')
     
-    elif menuPrincipal == 2:
+    #Seguir preguntando por las opciones del menú
+    if validacionInicioSesion == 0:
+        try:
+            menuPrincipalIngreso = int(input("\n¿Cómo desea ingresar?: \n1) Ingresar con cuenta de usuario. \n2) Registrar cuenta del usuario. \nIngresa la opción: "))
+        except:
+            menuPrincipalIngreso = -1
+            print ("\n---¡Digita una opción correcta!---")
+
+
+#Menú
+print ("***Bienvenido, este es el menú de Inicio***")
+
+while menuPrincipal != 0:
+
+    if menuPrincipal == 1:
         #Registrar una factura electronica
 
         print ("\n--- Registro de facturas: ---")
+
+        tipoDeCedula = -1
 
         while tipoDeCedula !=0:
 
             if tipoDeCedula == 1:
 
-                cedulaJuridica = str(input("\nIngrese el número de la cédula Juridica:"))
+                cedulaJuridica = str(input("\nIngrese el número de la cédula Jurídica:"))
+                cedulaInsert = cedulaJuridica
+                tipoCedulaInsert = 'Jurídica'
                 break
 
             elif tipoDeCedula == 2:
 
                 cedulaFisica = str(input("\nIngrese el número de la cédula Física:"))
+                cedulaInsert = cedulaFisica
+                tipoCedulaInsert = 'Física'
                 break
 
             try:
@@ -115,7 +264,11 @@ while menuPrincipal != 0:
         distrito = str(input("\nIngrese el Distrito: "))
         distrito = distrito.capitalize()
 
-    elif menuPrincipal == 3:
+        registroFacturasVariable = [cedulaInsert,tipoCedulaInsert,nombreRegistrado,telefono,correoElectronico,provincia,canton,distrito,idUsuario]
+
+        registroTXT(registroFacturasVariable, 'facturas.txt', 'Factura guardada con éxito')
+
+    elif menuPrincipal == 2:
         #Registro de paquetes
 
         print("\n--- Registro de paquetes: ---")
@@ -131,6 +284,9 @@ while menuPrincipal != 0:
         #Creación de guías
 
         print("\n--- Creación de guías: ---")
+
+        #Traer el total de guias en el txt
+        listaGuias = obtenerTXT('guias.txt')
         
         fechaActual = datetime.now()
         codigoFecha = datetime.strftime(fechaActual,'%d%m%y')
@@ -154,10 +310,19 @@ while menuPrincipal != 0:
         #Cobro contra entrega
         print ("El cobro contra entrega es: ₡ ",cobroContraEntrega)
 
+        listaUsuarios = obtenerTXT('usuarios.txt')
+        nombreComercio = listaUsuarios[idUsuario][2]
+        telefonoComercio = listaUsuarios[idUsuario][3]
+        listaUsuarios = []
+
         #Agregar a un arreglo multidimensional con los datos del paquete
         listaGuias.append([numeroGuia,nombreComercio,telefonoComercio,nombreDestinatario,telefonoDestinatario,cedulaDestinatario,pesoPaquete,cobroContraEntrega,estadoPaquete])
 
-    elif menuPrincipal == 4:
+        registroGuiasVariable = [numeroGuia,nombreComercio,telefonoComercio,nombreDestinatario,telefonoDestinatario,cedulaDestinatario,pesoPaquete,cobroContraEntrega,estadoPaquete,idUsuario]
+
+        registroTXT(registroGuiasVariable, 'guias.txt', 'Paquete guardado con éxito')
+
+    elif menuPrincipal == 3:
 
         print("\n--- Cambio de estado de paquetes: ---")
 
@@ -169,6 +334,9 @@ while menuPrincipal != 0:
 
             estadoCompleto = 0
 
+            #Traemos los datos del txt de guias
+            listaGuias = obtenerTXT('guias.txt')
+
             for guia in listaGuias:
 
                 # print("paquete[0]",guia[0], str(numeroGuiaEstado))
@@ -176,8 +344,11 @@ while menuPrincipal != 0:
                 if str(numeroGuiaEstado) == guia[0]:
 
                     nuevoEstado = input("\nIngrese el nuevo estado del paquete: \n *Creado \n *Recolectado \n *Entrega fallida \n *Entregado \nIngrese el nuevo estado:")
-                    listaGuias[paquete][-1] = nuevoEstado
-                    print("\nEstado actualizado correctamente. Se actualizó a",nuevoEstado)
+                    listaGuias[paquete][-2] = nuevoEstado
+
+                    actualizarEstadoVariable = listaGuias
+                    actualizarTXT(actualizarEstadoVariable, 'guias.txt', f'Estado actualizado correctamente. Se actualizó a {nuevoEstado}')
+
                     estadoCompleto = 1
                     break
 
@@ -190,7 +361,7 @@ while menuPrincipal != 0:
             else:
                 print("\nEl número de guía que ingresó no existe. Inténtelo denuevo. \nEscriba \"SALIR\" si quiere regresar al menú principal.")
 
-    elif menuPrincipal == 5:
+    elif menuPrincipal == 4:
 
         print("\n--- Rastreo de los paquetes: ---")
 
@@ -201,6 +372,9 @@ while menuPrincipal != 0:
             paquete = 0
 
             estadoCompleto = 0
+
+            #Traemos los datos del txt de guias
+            listaGuias = obtenerTXT('guias.txt')
 
             for guia in listaGuias:
 
@@ -220,7 +394,8 @@ while menuPrincipal != 0:
                 break
             else:
                 print("\nEl número de guía que ingresó no existe. Inténtelo denuevo. \nEscriba \"SALIR\" si quiere regresar al menú principal.")
-    elif menuPrincipal == 6:
+    
+    elif menuPrincipal == 5:
         # Módulo de estadísticas
 
         print("\n--- Módulo de estadísticas ---")
@@ -231,17 +406,17 @@ while menuPrincipal != 0:
             estadistica = int(input("Ingresa la opción: "))
 
             if estadistica  == 1:
-                print("Cantidad total de envíos:", calcularEnvios(listaGuias))
+                print("\nCantidad total de envíos:", calcularEnvios())
             elif estadistica  == 2:
-                print("Lista de paquetes enviados:", listaPaquetes(listaGuias))
+                print("\nLista de paquetes enviados:\n", listaPaquetes())
             elif estadistica  == 3:
-                print("Monto total de cobro:", calculoTotalRecolectado(listaGuias))
+                print("\nMonto total de cobro:", calculoTotalRecolectado())
             elif estadistica  == 4:
                 consultarTelefono = input("Ingresa el número de teléfono: ")
-                print("Cantidad de paquetes para el número de teléfono", consultarTelefono, ":", paquetesPorTelefono(listaGuias, consultarTelefono))
+                print("\nCantidad de paquetes para el número de teléfono", consultarTelefono, ":", paquetesPorTelefono(consultarTelefono))
             elif estadistica  == 5:
                 consultarCedula = input("Ingresa el número de cédula: ")
-                print("Cantidad de paquetes para el número de cédula", consultarCedula, ":", paquetesPorCedula(listaGuias, consultarCedula))
+                print("\nCantidad de paquetes para el número de cédula", consultarCedula, ":", paquetesPorCedula(consultarCedula))
             elif estadistica  == 0:
                 pass
             else:
@@ -251,7 +426,7 @@ while menuPrincipal != 0:
 
     #Seguir preguntando por las opciones del menú
     try:
-        menuPrincipal = int(input("\nMenú Principal: \n1) Registrar cuenta del usuario. \n2) Registrar una factura electrónica. \n3) Registrar el paquete. \n4) Cambio de estado de los paquetes \n5) Rastreo de los paquetes \n6) Módulo de estadística \n0) Salir.\nIngresa la opción: "))
+        menuPrincipal = int(input("\nMenú Principal: \n1) Registrar una factura electrónica. \n2) Registrar el paquete. \n3) Cambio de estado de los paquetes \n4) Rastreo de los paquetes \n5) Módulo de estadística \n0) Salir.\nIngresa la opción: "))
     except:
         menuPrincipal = -1
         print ("\n---¡Digita una opción correcta!---")
