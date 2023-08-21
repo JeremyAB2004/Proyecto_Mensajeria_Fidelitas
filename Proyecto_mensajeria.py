@@ -1,6 +1,27 @@
 from datetime import datetime
 import json
 
+try:
+    textFile = open('usuarios.txt', 'r')
+    textFile.close()
+except:
+    textFile = open('usuarios.txt', 'w')
+    textFile.close()
+
+try:
+    textFile = open('facturas.txt', 'r')
+    textFile.close()
+except:
+    textFile = open('facturas.txt', 'w')
+    textFile.close()
+
+try:
+    textFile = open('guias.txt', 'r')
+    textFile.close()
+except:
+    textFile = open('guias.txt', 'w')
+    textFile.close()
+
 #Variables de Registrar cuenta del usuario
 correoElectrónico = ''
 nombreComercio = ''
